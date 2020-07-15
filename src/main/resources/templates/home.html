@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coronavirus Tracker Application</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-md">
+    <h1>Coronavirus Tracker Application</h1>
+    <p>This application lists the current number of cases reported across the globe</p>
+
+    <div class="jumbotron">
+        <h1 class="display-3" th:text="${totalReportedCases}"></h1>
+        <p class="lead">Total cases reported as of today</p>
+        <hr class="my-4">
+        <h1 class="display-4" th:text="${totalNewCases}"></h1>
+        <p class="lead">New cases since previous day</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>State/Province</th>
+                <th>Country/Region</th>
+                <th>Total cases reported</th>
+                <th>Changes since last day</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="locationStat : ${locationStats}">
+                <td th:text="${locationStat.getState().isEmpty()} ? 'N/A' : ${locationStat.getState()}"></td>
+                <td th:text="${locationStat.getCountry()}"></td>
+                <td th:text="${locationStat.getLatestTotalCases()}">0</td>
+                <td th:text="${locationStat.getDiffFromPrevDay()}">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
